@@ -2,7 +2,8 @@
     "files.associations": {
         "unordered_map": "cpp",
         "new": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "ostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

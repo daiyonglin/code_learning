@@ -13,7 +13,7 @@ typedef struct{
 //生成串
 void StringAssign(SqString &s,char cstr[]){
     int i;
-    for(i=0;cstr[i]!='/0';i++){
+    for(i=0;cstr[i]!='\0';i++){
         s.data[i] = cstr[i];
     }
     s.len = i;//设置长度
@@ -111,7 +111,7 @@ SqString InsertStr(SqString s1,int i,SqString s2){
 
 //输出串
 void Print(SqString s){
-    if(s.len > 0){
+    if(s.len > 0){                                      
         for(int i=0;i<s.len;i++){
             cout<<s.data[i];
         }
@@ -120,4 +120,48 @@ void Print(SqString s){
     else{
         cout<<"空"<<endl;
     }
+}
+
+//Brute-Force算法
+int BF(SqString s,SqString t){
+    int i=0,j=0;
+    while(i<s.len && j<t.len) //两个串都没有遍历完时一直循环
+    {   
+        //一个位上字符相等，ij后移
+        if(s.data[i] == t.data[j]){
+            i++;
+            j++;
+        }
+        //失败，i回溯，j重新到0
+        else{
+            i=i-j+1;
+            j=0;
+        }
+    }
+    if(j>=t.len){
+        return i-t.len;//j超界，说明模式串成功匹配，返回首位
+    }
+    else{
+        return -1;//否则匹配失败
+    }
+}
+
+//KMP算法
+int KMP(SqString s,SqString t){
+    
+}
+
+int main() {
+    char str[MaxSize + 1]; // 多一个字符用于存放字符串结束符 '\0'
+    char ttr[MaxSize+1];
+    cout << "请输入目标串：";
+    cin.getline(str, MaxSize + 1); // 读取用户输入的字符串
+    cout <<"请输入模式串：";
+    cin.getline(ttr,MaxSize+1);
+    SqString s,t;
+    StringAssign(s, str); // 将用户输入的字符串赋值给顺序串
+    StringAssign(t,ttr);
+    
+    cout<<"BF算法匹配结果:"<<BF(s,t)<<endl;
+    return 0;
 }
