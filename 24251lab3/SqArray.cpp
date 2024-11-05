@@ -23,3 +23,6 @@ void Value(SqArray *&arr){
     
 }
 
+void Assign(SqArray* &arr,int a[]){
+    
+}
