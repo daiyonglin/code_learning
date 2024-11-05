@@ -146,22 +146,96 @@ int BF(SqString s,SqString t){
     }
 }
 
-//KMP算法
+//KMP算法(改进前，不含nextval数组)
+//next数组求解
+void GetNext(SqString t,int next[]){
+    int j,k;
+    j=0;k=-1;
+    next[0]=-1;
+    while(j<t.len-1){
+        if(k==-1 || t.data[j]==t.data[k]){
+            j++;k++;
+            next[j]=k;
+        }
+        else{
+            k = next[k];    //k回退
+        }
+    }
+}
+//KMP算法实现
 int KMP(SqString s,SqString t){
-    
+    int next[MaxSize],i=0,j=0;
+    GetNext(t,next);
+    while(i<s.len && j<t.len){
+        if(j==-1 || s.data[i]==t.data[j]){
+            i++;
+            j++;//相等往后移
+        }
+        else{
+            j = next[j];//不相等i不变，j回溯
+        }     
+    }
+    if(j>=t.len){
+            return i-t.len;
+    }
+    else{
+        return -1;
+    }
 }
 
+//改进的KMP算法
+//next_val求解
+void GetNext_val(SqString t,int next_val[]){
+    int j=0,k=-1;
+    next_val[0]=-1;
+    while(j<t.len){
+        if(k == -1 || t.data[j]==t.data[k]){
+            j++;k++;
+            if(t.data[j]!=t.data[k]){
+                next_val[j]=k;
+            }
+            else{
+                next_val[j]=next_val[k];
+            }
+        }
+        else{
+            k=next_val[k];
+        }
+    }
+}
+//KMP算法实现
+int KMPpro(SqString s,SqString t){
+    int next_val[MaxSize],i=0,j=0;
+    GetNext_val(t,next_val);
+    while(i<s.len && j<t.len){
+        if(j==-1 || s.data[i]==t.data[j]){
+            i++;
+            j++;//相等往后移
+        }
+        else{
+            j = next_val[j];//不相等i不变，j回溯
+        }     
+    }
+    if(j>=t.len){
+            return i-t.len;
+    }
+    else{
+        return -1;
+    }
+}
 int main() {
-    char str[MaxSize + 1]; // 多一个字符用于存放字符串结束符 '\0'
+    char str[MaxSize + 1];
     char ttr[MaxSize+1];
     cout << "请输入目标串：";
-    cin.getline(str, MaxSize + 1); // 读取用户输入的字符串
+    cin.getline(str, MaxSize + 1); //读取
     cout <<"请输入模式串：";
     cin.getline(ttr,MaxSize+1);
     SqString s,t;
-    StringAssign(s, str); // 将用户输入的字符串赋值给顺序串
+    StringAssign(s, str); // 将输入赋给s和t
     StringAssign(t,ttr);
     
-    cout<<"BF算法匹配结果:"<<BF(s,t)<<endl;
+    cout<<"BF算法匹配结果:"<<BF(s,t)<<endl; 
+    cout<<"KMP算法匹配结果:"<<KMP(s,t)<<endl;
+    cout<<"改进的KMP算法匹配结果:"<<KMPpro(s,t)<<endl;
     return 0;
 }
