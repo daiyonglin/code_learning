@@ -26,6 +26,19 @@ void Value(SqArray *&arr,int a[],int len){
         arr->data[i] = a[i];
     }
 }
+//存入指定位置的元素
+void Assign(SqArray *&arr,int a[],int pos){
+    if(arr->len == MaxSize){
+        cout<<"顺序数组空间已满，无法存入"<<endl;
+    }
+    else{
+        int i=0;
+        while(arr->data[i]!=0){
+            i++;
+        }
+        arr->data[i] = a[pos];
+    }
+}
 
 //打印数组
 void Print(SqArray* arr){
