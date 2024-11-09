@@ -54,6 +54,7 @@ int main(){
     InitArray(arr);
     int len = sizeof(a)/sizeof(a[0]);
     Value(arr,a,len);
-    cout<<arr->len<<endl;
+    arr->len+=1;
+    Assign(arr,a,3);
     Print(arr);
 }

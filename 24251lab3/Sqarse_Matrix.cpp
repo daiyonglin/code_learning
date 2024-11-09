@@ -89,7 +89,7 @@ void Change_Tri(S_Matrix*M,Triplets*& T){
     }
 }
 
-//向稀疏矩阵中插入元素
+//向稀疏矩阵的十字链表中插入元素
 void InsertElem(CrossList*& C,int row,int col,int value){
     Node* newNode = new Node{row,col,value,nullptr};
     //插入到行链表中
@@ -203,7 +203,6 @@ int main(){
     Matrix_to_CrossList(C,M);
     cout<<"存储为十字链表后稀疏矩阵：(矩阵形式)"<<endl;
     Print_CrossList(C);
-
 
     S_Matrix* Mb;
     Init_Matrix(Mb);
