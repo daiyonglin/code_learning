@@ -17,6 +17,7 @@ void solve(){
              while(left != right){
                 if(s[left]!='1' || s[right]!='2'){
                     cout<<"No"<<endl;
+                    
                     return;
                 }
                 else{
