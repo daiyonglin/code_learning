@@ -31,7 +31,7 @@ void solve(){
         }
         else if(hand == 'L'){
             block = pos_R;
-            from = pos_L;
+            from = pos_L;           
             to = mov;
             if(to < from){
                 swap(to,from);
